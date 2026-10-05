@@ -2,25 +2,18 @@
 
 namespace Database\Seeders;
 
-use App\Models\User;
-use App\Models\Role;
 use App\Models\Permission;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\Role;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\Hash;
 
-class DatabaseSeeder extends Seeder
+class RolePermissionSeeder extends Seeder
 {
-    use WithoutModelEvents;
-
-    /**
-     * Seed the application's database.
-     */
     public function run(): void
     {
-        /* Permissions*/
+        /*Permissions*/
 
         $permissions = [
+
             [
                 'name' => 'View Dashboard',
                 'slug' => 'dashboard.view',
@@ -93,9 +86,7 @@ class DatabaseSeeder extends Seeder
         ];
 
 
-        /*
-        Create / Update Permissions
-        */
+        /*Create / Update Permissions*/
 
         $permissionModels = [];
 
@@ -113,38 +104,16 @@ class DatabaseSeeder extends Seeder
         }
 
 
-        /*
-        Roles
-        
-        */
+        /* Admin Role*/
 
-        $adminRole = Role::updateOrCreate(
-            [
-                'slug' => 'admin',
-            ],
+        $admin = Role::updateOrCreate(
             [
                 'name' => 'Admin',
             ]
         );
 
 
-        $salesRole = Role::updateOrCreate(
-            [
-                'slug' => 'sales',
-            ],
-            [
-                'name' => 'Sales User',
-            ]
-        );
-
-
-        /*
-         Admin Permissions
-         Admin gets all available permissions.
-        
-        */
-
-        $adminRole->permissions()->sync(
+        $admin->permissions()->sync(
             collect($permissionModels)
                 ->pluck('id')
                 ->values()
@@ -152,56 +121,30 @@ class DatabaseSeeder extends Seeder
         );
 
 
-        /*
-         Sales User Permissions
-        
-        */
+       /*sale s user role and permissions*/
+
+        $salesUser = Role::updateOrCreate(
+            [
+                'name' => 'Sales User',
+            ]
+        );
+
 
         $salesPermissions = [
             'dashboard.view',
-
             'leads.view',
             'leads.create',
             'leads.update',
-
             'customers.view',
         ];
 
 
-        $salesRole->permissions()->sync(
+        $salesUser->permissions()->sync(
             collect($permissionModels)
                 ->only($salesPermissions)
                 ->pluck('id')
                 ->values()
                 ->toArray()
-        );
-
-
-        /*
-         Users
-        */
-
-        User::updateOrCreate(
-            [
-                'email' => 'admin@example.com',
-            ],
-            [
-                'name' => 'Admin User',
-                'password' => Hash::make('password'),
-                'role_id' => $adminRole->id,
-            ]
-        );
-
-
-        User::updateOrCreate(
-            [
-                'email' => 'sales@example.com',
-            ],
-            [
-                'name' => 'Sales User',
-                'password' => Hash::make('password'),
-                'role_id' => $salesRole->id,
-            ]
         );
     }
 }
