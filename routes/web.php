@@ -16,6 +16,9 @@ Route::post('/auth/login', [AuthController::class, 'login'])
 
 Route::middleware('auth.custom')->group(function () {
 
+    Route::get('/auth/logout', [AuthController::class, 'logout'])
+        ->name('logout');
+
     Route::get('/', function () {
         return view('dashboard');
     })
