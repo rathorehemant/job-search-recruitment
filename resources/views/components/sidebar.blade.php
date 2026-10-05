@@ -36,22 +36,22 @@
 
         @if(auth()->user()->hasPermission('dashboard.view'))
 
-            <div class="menu-title">
-                MAIN
-            </div>
+        <div class="menu-title">
+            MAIN
+        </div>
 
-            {{-- Dashboard --}}
-            <a
-                href="{{ route('dashboard') }}"
-                class="sidebar-link {{ request()->routeIs('dashboard') ? 'active' : '' }}">
+        {{-- Dashboard --}}
+        <a
+            href="{{ route('dashboard') }}"
+            class="sidebar-link {{ request()->routeIs('dashboard') ? 'active' : '' }}">
 
-                <i class="bi bi-grid-1x2"></i>
+            <i class="bi bi-grid-1x2"></i>
 
-                <span>
-                    Dashboard
-                </span>
+            <span>
+                Dashboard
+            </span>
 
-            </a>
+        </a>
 
         @endif
 
@@ -61,108 +61,106 @@
         ====================================================== --}}
 
         @if(
-            auth()->user()->hasPermission('users.view') ||
-            auth()->user()->hasPermission('roles.view') ||
-            auth()->user()->hasPermission('leads.view') ||
-            auth()->user()->hasPermission('customers.view')
+        auth()->user()->hasPermission('users.view') ||
+        auth()->user()->hasPermission('roles.view') ||
+        auth()->user()->hasPermission('leads.view') ||
+        auth()->user()->hasPermission('customers.view')
         )
 
-            <div class="menu-title">
-                MANAGEMENT
-            </div>
+        <div class="menu-title">
+            MANAGEMENT
+        </div>
 
 
-            {{-- =================================================
+        {{-- =================================================
                 Users
             ================================================== --}}
 
-            @if(auth()->user()->hasPermission('users.view'))
+        @if(auth()->user()->hasPermission('users.view'))
 
-                <a
-                    href="{{ route('users.index') }}"
-                    class="sidebar-link {{ request()->routeIs('users.*') ? 'active' : '' }}">
+        <a
+            href="{{ route('users.index') }}"
+            class="sidebar-link {{ request()->routeIs('users.*') ? 'active' : '' }}">
 
-                    <i class="bi bi-person-gear"></i>
+            <i class="bi bi-person-gear"></i>
 
-                    <span>
-                        Users
-                    </span>
+            <span>
+                Users
+            </span>
 
-                </a>
+        </a>
 
-            @endif
+        @endif
 
 
-            {{-- =================================================
+        {{-- =================================================
                 User Roles
             ================================================== --}}
 
-            @if(auth()->user()->hasPermission('roles.view'))
+        @if(auth()->user()->hasPermission('roles.view'))
 
-                <a
-                    href="{{ route('users.role') }}"
-                    class="sidebar-link {{ request()->routeIs('users.role') ? 'active' : '' }}">
+        <a
+            href="{{ route('users.role') }}"
+            class="sidebar-link {{ request()->routeIs('users.role') ? 'active' : '' }}">
 
-                    <i class="bi bi-shield-lock"></i>
+            <i class="bi bi-shield-lock"></i>
 
-                    <span>
-                        User Roles
-                    </span>
+            <span>
+                User Roles
+            </span>
 
-                </a>
+        </a>
 
-            @endif
+        @endif
 
 
-            {{-- =================================================
+        {{-- =================================================
                 Leads
             ================================================== --}}
 
-            @if(auth()->user()->hasPermission('leads.view'))
+        @if(auth()->user()->hasPermission('leads.view'))
 
-                <a
-                    href="{{ route('leads.index') }}"
-                    class="sidebar-link {{ request()->routeIs('leads.*') ? 'active' : '' }}">
+        <a
+            href="{{ route('leads.index') }}"
+            class="sidebar-link {{ request()->routeIs('leads.*') ? 'active' : '' }}">
 
-                    <i class="bi bi-person-lines-fill"></i>
+            <i class="bi bi-person-lines-fill"></i>
 
-                    <span>
-                        Leads
-                    </span>
+            <span>
+                Leads
+            </span>
 
-                </a>
+        </a>
 
-            @endif
+        @endif
 
 
-            {{-- =================================================
+        {{-- =================================================
                 Customers
             ================================================== --}}
 
-            @if(auth()->user()->hasPermission('customers.view'))
+        @if(auth()->user()->hasPermission('customers.view'))
 
-                <a
-                    href="{{ route('customers.index') }}"
-                    class="sidebar-link {{ request()->routeIs('customers.*') ? 'active' : '' }}">
+        <a
+            href="{{ route('customers.index') }}"
+            class="sidebar-link {{ request()->routeIs('customers.*') ? 'active' : '' }}">
 
-                    <i class="bi bi-people"></i>
+            <i class="bi bi-people"></i>
 
-                    <span>
-                        Customers
-                    </span>
+            <span>
+                Customers
+            </span>
 
-                </a>
+        </a>
 
-            @endif
+        @endif
 
         @endif
 
     </div>
 
 
-    {{-- =========================================================
-        Sidebar Footer
-    ========================================================== --}}
+   
     <div class="sidebar-footer">
 
         <div class="user-info">
@@ -191,6 +189,27 @@
                 </div>
 
             </div>
+
+
+            {{-- Logout --}}
+            <form
+                action="{{ route('logout') }}"
+                method="GET"
+                class="ms-auto">
+
+                @csrf
+
+                <button
+                    type="submit"
+                    class="btn btn-link text-danger p-0"
+                    title="Logout"
+                    style="text-decoration: none;">
+
+                    <i class="bi bi-box-arrow-right fs-5"></i>
+
+                </button>
+
+            </form>
 
         </div>
 

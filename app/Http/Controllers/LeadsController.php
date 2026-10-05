@@ -29,6 +29,14 @@ class LeadsController extends Controller
 
             $data = $this->leadsService->getAllLeads($request);
 
+            if ($request->is('api/*')) {
+                return response()->json([
+                    'success' => true,
+                    'message' => 'Leads fetched successfully.',
+                    'data' => $data['leads'],
+                ], 200);
+            }
+
             return view('Leads.index', $data);
         } catch (\Exception $e) {
 

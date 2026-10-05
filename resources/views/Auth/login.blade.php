@@ -92,6 +92,13 @@
                         </div>
                         @endif
 
+                         <!-- Success Message -->
+                        @if(session('success'))
+                        <div class="alert alert-success">
+                            {{ session('success') }}
+                        </div>
+                        @endif
+
                         <!-- Validation Errors -->
                         @if($errors->any())
                         <div class="alert alert-danger">
